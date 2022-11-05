@@ -1,10 +1,12 @@
 import express from 'express';
+import config from "src/config";
 
 const app = express();
-const port = process.env.PORT;
+const port = config.port;
 
 app.get("/", async (req, res) => {
-  res.send("Hello world!");
+
+  res.send("");
 });
 
 app.listen(port, () => {
