@@ -12,6 +12,8 @@ export default class UserRepository implements IUserRepository {
 
     async getNow(): Promise<string> {
         const dbRes = await this.client.query("SELECT NOW()");
-        return Promise.resolve(dbRes.rows.at(0));
+        const now = dbRes.rows.at(0);
+        console.log({dbRes});
+        return Promise.resolve(now);
     }
 }

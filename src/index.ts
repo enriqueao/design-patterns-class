@@ -1,13 +1,13 @@
 import express from 'express';
 import config from "src/config";
+import UserController from './controllers/get-user';
 
 const app = express();
 const port = config.port;
 
-app.get("/", async (req, res) => {
+const userController = new UserController();
 
-  res.send("");
-});
+app.get("/", userController.execute.bind(userController));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

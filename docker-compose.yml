@@ -21,6 +21,23 @@ services:
       POSTGRES_DB: '${DB_NAME}'
       PGPORT: '${DB_PORT}'
 
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: 'postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable'
+    volumes:
+      - ./:/app
+    entrypoint:
+      - bash
+      - -c
+    command:
+      - dbmate wait && dbmate up && ([ -d "db/seeds" ] && dbmate --migrations-dir=db/seeds --migrations-table=seed_migrations up || true)
+
   app:
     build:
       context: .
