@@ -3,7 +3,7 @@ import config from 'src/config';
 
 class PgConnection {
 
-    #client: ClientBase;
+    #client: ClientBase; // private field typescript
 
     private static instance: PgConnection;
 
